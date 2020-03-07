@@ -12,6 +12,30 @@ const connection = mysql.createConnection({
     database: "employees_DB"
 });
 
+connection.connect(function(err) {
+    if (err) throw err;
+    start();
+});
+
+function start() {
+    inquirer
+    .prompt({
+        name: "viewEmployees",
+        type: "list",
+        message: "Would you like to [VIEW] employee names or [ROLES]",
+        choices: ["VIEW", "ROLES", "EXIT"]
+    })
+    .then(function(answer) {
+        if (answer.viewEmployees === "VIEW") {
+            postEmployee();
+        }
+        else if(answer.viewEmployees === "ROLES") {
+            postRoles();
+        }else{
+            connection.end();
+        }
+    })
+}
 array = [
     {
         firstname: "",
