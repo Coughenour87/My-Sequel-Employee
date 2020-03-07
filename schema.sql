@@ -15,13 +15,13 @@ CREATE TABLE roles (
     salary DECIMAL(10,3) NOT NULL,
     department_id INT NOT NULL
 );
+
 CREATE TABLE employee (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	first_name VARCHAR(30) NOT NULL,
 	last_name VARCHAR(30) NOT NULL,
     role_id VARCHAR(30) NOT NULL,
     manager_id VARCHAR NOT NULL
-    
 );
 
 INSERT INTO department (department_name)

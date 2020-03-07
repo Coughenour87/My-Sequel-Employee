@@ -3,66 +3,141 @@ const inquirer = require("inquirer");
 
 const connection = mysql.createConnection({
     host: "localhost",
-
     port:3306,
-
     user:"root",
-
     password:"Daphne93!",
     database: "employees_DB"
 });
 
 connection.connect(function(err) {
     if (err) throw err;
-    start();
+    return;
 });
 
-function start() {
+connection.query("SELECT * from department", function (error, res) {
+    showdepartment = res.map(department => ({ name: department.name, value: department.id }))
+});
+
+connection.query("SELECT * from roles", function (error, res) {
+    showroles = res.map(roles => ({ name: roles.title, value: roles.id }))
+});
+
+connection.query("SELECT * from employee", function (error, res) {
+    showemployee = res.map(employee => ({ name: employee.first_name, value: employee.id }))
+});
+
+showlist();
+
+
+function showlist() {
     inquirer
-    .prompt({
-        name: "viewEmployees",
+    .prompt(
+    {
         type: "list",
-        message: "Would you like to [VIEW] employee names or [ROLES]",
-        choices: ["VIEW", "ROLES", "EXIT"]
-    })
-    .then(function(answer) {
-        if (answer.viewEmployees === "VIEW") {
-            postEmployee();
-        }
-        else if(answer.viewEmployees === "ROLES") {
-            postRoles();
-        }else{
-            connection.end();
-        }
-    });
-}
-
-function postEmployee() {
-    inquirer
-    .prompt([
-        {
-            name: "employee",
-            type: "input",
-            message:"What employee would you like to view?",
-        },
-        {
-            name: "role",
-            type: "input",
-            message: "What is the employee role",
-        },
-    ])
-    .then(function(answer) {
-        connection.query(
-            "INSERT INTO employee ?",
+        message: "What would you like to do?",
+        name:"choices",
+        choices: [
             {
-                employee_name: answer.employee,
-                role: answer.role,
-
+                name:"View employees",
+                value: "viewEmployees"
             },
-            function(err) {
-                if (err) throw err;
-                start();
-            }
-        );
+            {
+                name: "View departments",
+                value: "viewDepartments"
+            },
+            {
+                name: "View roles",
+                value: "viewRoles"
+            },
+            {
+                name: "Add empolyee",
+                value: "addEmployee"
+            },
+            {
+                name: "Add department",
+                value: "addDeparment"
+            },
+            {
+                name: "Add roles",
+                value: "addRoles"
+            },
+            {
+                name: "Update roles",
+                value: "newRoles",
+            },
+        ]
+    })
+    .then(function(res) {
+        list(res.choices)
     });
 }
+
+function list(options) {
+    switch(options) {
+        case "viewEmployees":
+            viewEmployees();
+            break;
+        case "viewDepartments":
+            viewDepartments();
+            break;
+        case "viewRoles":
+            viewRoles();
+            break;
+        case "addEmployee":
+            addEmployee();
+            break;
+        case "addDepartment":
+            addDepartment();
+            break;
+        case "addRoles":
+            addRoles();
+            break;
+        case "newRoles":
+            newRoles();
+    }
+};
+ function viewDepartments() {
+     connection.query("SELECT * from department", function (err, res) {
+         console.table(res);
+         menu();
+     });
+ };
+
+ function viewRoles() {
+     connection.query("SELECT * from roles", function (err, res) {
+         console.table(res);
+         menu();
+     });
+ };
+
+ function addEmployee() {
+     inquirer
+     .prompt([
+         {
+             type: "input",
+             message: "Employees first name?",
+             name: "firstName",
+         },
+         {
+            type: "input",
+            message: "Employees last name?",
+            name: "lastName",
+         },
+         {
+            type: "list",
+            message: "Employees role?",
+            name: "roles",
+            choices: showroles
+         },
+         {
+            type: "list",
+            message: "Employees manager?",
+            name: "manager",
+            choice: showemployee,
+         },
+     ]).then(function (response) {
+         addEmployee(response)
+     });
+ };
+ 
+
