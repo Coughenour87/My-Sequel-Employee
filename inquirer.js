@@ -34,22 +34,35 @@ function start() {
         }else{
             connection.end();
         }
-    })
+    });
 }
-array = [
-    {
-        firstname: "",
-        lastname: "kovel",
-        pet: "Jango"
-    },
-    {
-        firstname: "lori",
-        lastname: "kovel",
-        pet: "Jiggs"
-    }
-];
-  function myFunction() {
-    const fullname = array.map(person => `${person.firstname} ${person.lastname}`);
-    console.table(fullname);
-  }
-  myFunction();
+
+function postEmployee() {
+    inquirer
+    .prompt([
+        {
+            name: "employee",
+            type: "input",
+            message:"What employee would you like to view?",
+        },
+        {
+            name: "role",
+            type: "input",
+            message: "What is the employee role",
+        },
+    ])
+    .then(function(answer) {
+        connection.query(
+            "INSERT INTO employee ?",
+            {
+                employee_name: answer.employee,
+                role: answer.role,
+
+            },
+            function(err) {
+                if (err) throw err;
+                start();
+            }
+        );
+    });
+}

@@ -25,4 +25,4 @@ CREATE TABLE department (
     department_name VARCHAR(30)
 );
 
-SELECT * FROM 
+SELECT * FROM employees_DB
