@@ -14,15 +14,15 @@ connection.connect(function(err) {
     return;
 });
 
-connection.query("SELECT * from department", function (error, res) {
+connection.query("SELECT * from department", function (err, res) {
     showdepartment = res.map(department => ({ name: department.name, value: department.id }))
 });
 
-connection.query("SELECT * from roles", function (error, res) {
+connection.query("SELECT * from roles", function (err, res) {
     showroles = res.map(roles => ({ name: roles.title, value: roles.id }))
 });
 
-connection.query("SELECT * from employee", function (error, res) {
+connection.query("SELECT * from employee", function (err, res) {
     showemployee = res.map(employee => ({ name: employee.first_name, value: employee.id }))
 });
 
@@ -139,5 +139,104 @@ function list(options) {
          addEmployee(response)
      });
  };
- 
+
+ function addEmployee(data) {
+    connection.query
+    {
+        first_name; data.firstName,
+        last_name; data.lastName,
+        roles_id; data.title,
+        manager_id; data.manager
+    }function (err, res) {
+        if (err) throw error;
+    };
+    menu();
+};
+
+function addDeparment() {
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            message: "Departments name?",
+            name: "name"
+        }
+    ])
+    .then(function(response) {
+        addDeparment(response);
+    });
+};
+function addDeparment(data) {
+    connection.query 
+    function (err, res) {
+        if (err) throw error;
+    };
+    menu();
+};
+
+function addRoles() {
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            message: "Name of employees new role?",
+            name: "title"
+        },
+        {
+            type: "input",
+            message: "What is the new roles salary?",
+            name: "salary"
+        },
+        {
+            type: "list",
+            message: "New departments name?",
+            name: "id",
+            choices: showdepartment
+        }
+    ])
+    .then(function(response){
+        addRoles(response);
+    });
+};
+function addRoles(data) {
+    connection.query
+    {
+        title; data.title,
+        salary; data.salary,
+        department_id; data.id
+    } function (err, res) {
+        if (err) throw ErrorEvent;
+    };
+    menu();
+};
+
+function newRoles() {
+    inquirer
+    .prompt([
+        {
+            type: "list",
+            message: "Which employees role is being updated?",
+            name: "employeeid",
+            choices: showemployee
+        },
+        {
+            type: "list",
+            message: "What is the employees new role?",
+            name: "titleid",
+            choices: showroles
+        }
+    ])
+    .then(function(response) {
+        updateRole(response);
+    });
+};
+function updateRole(data) {
+    connection.query
+    {
+        function (err, res) {
+            if (err) throw error;
+        };
+        end();
+    };
+};
 
