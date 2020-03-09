@@ -30,8 +30,7 @@ showlist();
 
 
 function showlist() {
-    inquirer
-    .prompt(
+    inquirer.prompt(
     {
         type: "list",
         message: "What would you like to do?",
@@ -111,8 +110,7 @@ function list(options) {
  };
 
  function addEmployee() {
-     inquirer
-     .prompt([
+     inquirer.prompt([
          {
              type: "input",
              message: "Employees first name?",
@@ -135,27 +133,20 @@ function list(options) {
             name: "manager",
             choice: showemployee,
          },
-     ]).then(function (response) {
+     ])
+     .then(function (response) {
          addEmployee(response)
+         connection.query ("INSERT INTO employee (first_name, last_name, role_id, manager_id"),
+         function (err, res) {
+             if (err) throw error;
+         };
      });
  };
-
- function addEmployee(data) {
-    connection.query
-    {
-        first_name; data.firstName,
-        last_name; data.lastName,
-        roles_id; data.title,
-        manager_id; data.manager
-    }function (err, res) {
-        if (err) throw error;
-    };
     menu();
-};
+
 
 function addDeparment() {
-    inquirer
-    .prompt([
+    inquirer.prompt([
         {
             type: "input",
             message: "Departments name?",
@@ -163,20 +154,18 @@ function addDeparment() {
         }
     ])
     .then(function(response) {
-        addDeparment(response);
+        addDeparment(response)
+        connection.query("INSERT INTO department (name) VALUES"),
+        function (err, res) {
+            if (err) throw error;
+        };
     });
 };
-function addDeparment(data) {
-    connection.query 
-    function (err, res) {
-        if (err) throw error;
-    };
     menu();
-};
+
 
 function addRoles() {
-    inquirer
-    .prompt([
+    inquirer.prompt([
         {
             type: "input",
             message: "Name of employees new role?",
@@ -195,24 +184,17 @@ function addRoles() {
         }
     ])
     .then(function(response){
+        connection.query("INSERT INTO roles (title, salary, id"),
+        function (err, res) {
+        if (err) throw error;
         addRoles(response);
+        };
     });
 };
-function addRoles(data) {
-    connection.query
-    {
-        title; data.title,
-        salary; data.salary,
-        department_id; data.id
-    } function (err, res) {
-        if (err) throw ErrorEvent;
-    };
-    menu();
-};
+menu();
 
 function newRoles() {
-    inquirer
-    .prompt([
+    inquirer.prompt([
         {
             type: "list",
             message: "Which employees role is being updated?",
@@ -228,15 +210,10 @@ function newRoles() {
     ])
     .then(function(response) {
         updateRole(response);
-    });
-};
-function updateRole(data) {
-    connection.query
-    {
+        connection.query("UPDATE employee SET "),
         function (err, res) {
             if (err) throw error;
         };
-        end();
-    };
+    });
 };
-
+end();  
