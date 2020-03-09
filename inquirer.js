@@ -228,27 +228,30 @@ function addRoles() {
     });
 }
 
-function newRoles() {
-    inquirer.prompt([
+function updateRoles() {
+    inquirer
+    .prompt([
         {
+            name: "employeeid",
             type: "list",
             message: "Which employees role is being updated?",
-            name: "employeeid",
             choices: showemployee
         },
         {
+            name: "titleid",
             type: "list",
             message: "What is the employees new role?",
-            name: "titleid",
             choices: showroles
         }
     ])
-    .then(function(response) {
-        updateRole(response);
-        connection.query("UPDATE employee SET "),
+    .then(function(answer) {
+        var query = "UPDATE roles";
+        connection.query(query,{roles:answer.roles},
         function (err, res) {
-            if (err) throw error;
-        };
+            if (err) throw err;
+            console.table(res);
+            runSearch();
+        });
     });
 };
 end();  
