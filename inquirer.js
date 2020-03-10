@@ -66,6 +66,9 @@ function runSearch() {
             break;
         case "Update Roles":
             updateRoles();
+            break;
+        // case "Exit":
+        //     exit();
         }
     });
 }
@@ -205,4 +208,4 @@ function updateRoles() {
         });
     });
 };
-// end();  
+// Exit();  
