@@ -26,8 +26,6 @@ connection.connect(function(err) {
 //     showemployee = res.map(employee => ({ name: employee.first_name, value: employee.id }))
 // });
 
-// showlist();
-
 
 function runSearch() {
     inquirer
@@ -36,115 +34,69 @@ function runSearch() {
         type: "list",
         message: "What would you like to do?",
         choices: [
-            {
-                name:"View employees",
-                // value: "viewEmployees"
-            },
-            {
-                name: "View departments",
-                // value: "viewDepartments"
-            },
-            {
-                name: "View roles",
-                // value: "viewRoles"
-            },
-            {
-                name: "Add empolyee",
-                // value: "addEmployee"
-            },
-            {
-                name: "Add department",
-                // value: "addDeparment"
-            },
-            {
-                name: "Add roles",
-                // value: "addRoles"
-            },
-            {
-                name: "Update roles",
-                // value: "newRoles",
-            },
-            {
-                name: "exit",
-            },
+                "View employees",
+                "View departments",
+                "View roles",
+                "Add empolyee",
+                "Add department",
+                "Add roles",
+                "Update roles",
+                "exit",
         ]
     })
     .then(function(answer) {
-        switch (answer.choices) {
-        case "viewEmployees":
+        switch (answer.action) {
+        case "View Employees":
             viewEmployees();
             break;
-        case "viewDepartments":
+        case "View Departments":
             viewDepartments();
             break;
-        case "viewRoles":
+        case "View Roles":
             viewRoles();
             break;
-        case "addEmployee":
+        case "Add Employee":
             addEmployee();
             break;
-        case "addDepartment":
+        case "Add Department":
             addDepartment();
             break;
-        case "addRoles":
+        case "Add Roles":
             addRoles();
             break;
-        case "updateRoles":
+        case "Update Roles":
             updateRoles();
         }
     });
 }
 
 function viewEmployees() {
-    inquirer
-    .prompt({
-        name: "employee",
-        type: "input",
-        message: "Which employee would you like to view?"
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.dept_name, role.salary FROM employee LEFT JOIN role ON employee.role_id=role.id LEFT JOIN department ON role.department_id=department.id", function(err, res) {
+        if (err) throw err;
+        console.table(res);
+        runSearch();
     })
-    .then(function(answer) {
-        var query = "SELECT position, first_name, last_name, FROM employee WHERE ?";
-        connection.query(query, [{firstname: answer.firstname, lastname: answer.lastname}],function(err, res) {
-            if (err) throw err;
-            console.table(res)
-            runSearch();
-        });
-    });
-}
+};
 
- function viewDepartments() {
-     inquirer
-     .prompt ({
-         name:"department",
-         type: "input",
-         message: "Which department would you like to view?"
-     })
-     .then(function(answer) {
-         var query = "SELECT position, department_name FROM department WHERE ?";
-         connection.query(query,{department:answer.departmentname}, function (err, res) {
-             if (err) throw err;
-             console.table(res);
-             runSearch();
-         });
-     });
- }
+
+function viewDepartments() {
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.dept_name, role.salary FROM employee LEFT JOIN role ON employee.role_id=role.id LEFT JOIN department ON role.department_id=department.id ORDER BY dept_name", function(err, res) {
+        if (err) throw err;
+        console.table(res);
+        runSearch();
+    })
+};
+
 
  function viewRoles() {
-     inquirer
-     .prompt ({
-         name:"roles",
-         type: "input",
-         message: "Which roles would you like to view?"
-     })
-     .then(function(answer) {
-         var query = "SELECT position, title FROM roles WHERE ?";
-         connection.query(query,{roles:answer.title}, function (err, res) {
-             if (err) throw err;
-             console.table(res);
-             runSearch();
-         });
-     });
- }
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.dept_name, role.salary FROM employee LEFT JOIN role ON employee.role_id=role.id LEFT JOIN department ON role.department_id=department.id ORDER BY role.title", function(err, results) {
+        if (err) throw err;
+        // Log all results of the SELECT statement
+        console.table(results);
+        runSearch();
+    })
+};
+
 
  function addEmployee() {
      inquirer.prompt([
@@ -254,4 +206,4 @@ function updateRoles() {
         });
     });
 };
-end();  
+// end();  
