@@ -71,7 +71,7 @@ function runSearch() {
 }
 
 function viewEmployees() {
-    connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.dept_name, role.salary FROM employee LEFT JOIN role ON employee.role_id=role.id LEFT JOIN department ON role.department_id=department.id", function(err, res) {
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.deptarment_name, roles.salary FROM employee LEFT JOIN roles ON employee.roles_id=roles.id LEFT JOIN department ON roles.department_id=department.id", function(err, res) {
         if (err) throw err;
         console.table(res);
         runSearch();
@@ -80,7 +80,7 @@ function viewEmployees() {
 
 
 function viewDepartments() {
-    connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.dept_name, role.salary FROM employee LEFT JOIN role ON employee.role_id=role.id LEFT JOIN department ON role.department_id=department.id ORDER BY dept_name", function(err, res) {
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.deptarment_name, roles.salary FROM employee LEFT JOIN roles ON employee.roles_id=roles.id LEFT JOIN department ON roles.department_id=department.id ORDER BY deptarment_name", function(err, res) {
         if (err) throw err;
         console.table(res);
         runSearch();
@@ -89,7 +89,7 @@ function viewDepartments() {
 
 
  function viewRoles() {
-    connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.dept_name, role.salary FROM employee LEFT JOIN role ON employee.role_id=role.id LEFT JOIN department ON role.department_id=department.id ORDER BY role.title", function(err, results) {
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.deptarment_name, roles.salary FROM employee LEFT JOIN roles ON employee.roles_id=roles.id LEFT JOIN department ON roles.department_id=department.id ORDER BY roles.title", function(err, results) {
         if (err) throw err;
         // Log all results of the SELECT statement
         console.table(results);
@@ -112,7 +112,7 @@ function viewDepartments() {
          },
          {
             type: "list",
-            message: "Employees role?",
+            message: "Employees roles?",
             name: "roles",
             choices: showroles
          },
@@ -124,8 +124,8 @@ function viewDepartments() {
          },
      ])
      .then(function (answer) {
-         var query = "INSERT INTO employee (first_name, last_name, role_id, manager_id)";
-         connection.query (query, {employee:answer.first_name, employee:answer.last_name, employee:answer.role_id, employee:answer.manager_id },
+         var query = "INSERT INTO employee (first_name, last_name, roles_id, manager_id)";
+         connection.query (query, {employee:answer.first_name, employee:answer.last_name, employee:answer.roles_id, employee:answer.manager_id },
          function (err, res) {
              if (err) throw err;
              console.table(res);
@@ -156,7 +156,7 @@ function addRoles() {
         {
             name: "title",
             type: "input",
-            message: "Name of employees new role?",
+            message: "Name of employees new roles?",
         },
         {
             name: "salary",
