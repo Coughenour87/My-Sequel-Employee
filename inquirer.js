@@ -71,7 +71,7 @@ function runSearch() {
 }
 
 function viewEmployees() {
-    connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.deptarment_name, roles.salary FROM employee LEFT JOIN roles ON employee.roles_id=roles.id LEFT JOIN department ON roles.department_id=department.id", function(err, res) {
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.department_name, roles.salary FROM employee LEFT JOIN roles ON employee.role_id=roles.id LEFT JOIN department ON roles.department_id=department.id", function(err, res) {
         if (err) throw err;
         console.table(res);
         runSearch();
@@ -80,7 +80,7 @@ function viewEmployees() {
 
 
 function viewDepartments() {
-    connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.deptarment_name, roles.salary FROM employee LEFT JOIN roles ON employee.roles_id=roles.id LEFT JOIN department ON roles.department_id=department.id ORDER BY deptarment_name", function(err, res) {
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.department_name, roles.salary FROM employee LEFT JOIN roles ON employee.role_id=roles.id LEFT JOIN department ON roles.department_id=department.id ORDER BY department_name", function(err, res) {
         if (err) throw err;
         console.table(res);
         runSearch();
@@ -89,7 +89,7 @@ function viewDepartments() {
 
 
  function viewRoles() {
-    connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.deptarment_name, roles.salary FROM employee LEFT JOIN roles ON employee.roles_id=roles.id LEFT JOIN department ON roles.department_id=department.id ORDER BY roles.title", function(err, results) {
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.department_name, roles.salary FROM employee LEFT JOIN roles ON employee.role_id=roles.id LEFT JOIN department ON roles.department_id=department.id ORDER BY roles.title", function(err, results) {
         if (err) throw err;
         // Log all results of the SELECT statement
         console.table(results);
