@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
     port:3306,
     user:"root",
     password:"Daphne93!",
-    database: "employees_DB"
+    database: "employees_db"
 });
 
 connection.connect(function(err) {
@@ -14,17 +14,17 @@ connection.connect(function(err) {
     runSearch();
 });
 
-// connection.query("SELECT * from department", function (err, res) {
-//     showdepartment = res.map(department => ({ name: department.name, value: department.id }))
-// });
+connection.query("SELECT * from department", function (err, res) {
+    showdepartment = res.map(department => ({ name: department.name, value: department.id }))
+});
 
-// connection.query("SELECT * from roles", function (err, res) {
-//     showroles = res.map(roles => ({ name: roles.title, value: roles.id }))
-// });
+connection.query("SELECT * from roles", function (err, res) {
+    showroles = res.map(roles => ({ name: roles.title, value: roles.id }))
+});
 
-// connection.query("SELECT * from employee", function (err, res) {
-//     showemployee = res.map(employee => ({ name: employee.first_name, value: employee.id }))
-// });
+connection.query("SELECT * from employee", function (err, res) {
+    showemployee = res.map(employee => ({ name: employee.first_name, value: employee.id }))
+});
 
 
 function runSearch() {
@@ -34,13 +34,13 @@ function runSearch() {
         type: "list",
         message: "What would you like to do?",
         choices: [
-                "View employees",
-                "View departments",
-                "View roles",
-                "Add empolyee",
-                "Add department",
-                "Add roles",
-                "Update roles",
+                "View Employees",
+                "View Departments",
+                "View Roles",
+                "Add Empolyee",
+                "Add Department",
+                "Add Roles",
+                "Update Roles",
                 "exit",
         ]
     })

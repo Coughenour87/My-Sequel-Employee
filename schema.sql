@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS employees_DB;
+DROP DATABASE IF EXISTS employees_db;
 
-CREATE DATABASE employees_DB;
+CREATE DATABASE employees_db;
 
-USE employees_DB;
+USE employees_db;
 
 CREATE TABLE department (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -86,4 +86,4 @@ VALUES ("Tom", "Allen", 4, 4);
 INSERT INTO employee(first_name, last_name, role_id, manager_id)
 VALUES ("Christian", "Eckenrode", 2, 2);
 
-SELECT * FROM employees_DB
+SELECT * FROM employees_db
