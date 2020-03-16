@@ -1,0 +1,24 @@
+{
+  "name": "my-sequel-employee",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tracker.js",
+  "dependencies": {
+    "inquirer": "^7.1.0",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Coughenour87/My-Sequel-Employee.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Coughenour87/My-Sequel-Employee/issues"
+  },
+  "homepage": "https://github.com/Coughenour87/My-Sequel-Employee#readme"
+}
