@@ -1,7 +1,7 @@
 # My-Sequel-Employee
 
 
-[Deployed Website] https://coughenour87.github.io/My-Sequel-Employee/.
+![Photo of finished product](assets/images/sequelemployee.png)
 
 
 Design the following database schema containing three tables:
